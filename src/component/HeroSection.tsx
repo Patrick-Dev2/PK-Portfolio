@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import { useLanguage } from "../context/LanguageContext";
 import "./HeroSection.css";
+import MagicAura from "./MagicAura";
 const HeroSection: React.FC = () => {
   const { darkMode } = useTheme();
   const { language } = useLanguage();
@@ -37,6 +38,7 @@ const HeroSection: React.FC = () => {
         })`,
       }}
     >
+      <MagicAura />
       <div className="hero-content">
         <div className="content-wrapper">
           <div className="hero-texts">
