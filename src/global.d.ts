@@ -1,0 +1,9 @@
+declare module "*.css";
+declare module "*.scss";
+declare module "swiper/css";
+declare module "swiper/css/navigation";
+declare module "swiper/css/pagination";
+declare module "swiper/css/bundle";
+declare module "swiper/css/effect-creative";
+declare module "vanta/dist/vanta.net.min";
+declare module "three"

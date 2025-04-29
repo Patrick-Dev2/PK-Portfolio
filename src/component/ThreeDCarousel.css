@@ -1,0 +1,247 @@
+/* ThreeDCarousel.css (v6 – transiciones fluidas + aura) */
+
+/* ---- Global Reset ---- */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---- Variables ---- */
+:root {
+  --bg-day: #ffffff;
+  --bg-night: #000000;
+  --red: #e63946;
+  --gold: #f4c430;
+  --card-size: 300px;
+  --radius: 1rem;
+  --duration: 0.8s;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Section ---- */
+.carousel3d-section {
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 1rem;
+  text-align: center;
+  background: var(--bg-day);
+  perspective: 1200px;
+  transition: background 0.5s var(--ease);
+}
+.carousel3d-section.dark {
+  background: var(--bg-night);
+}
+
+.carousel3d-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #222;
+  transition: color 0.5s var(--ease);
+}
+.carousel3d-section.dark .carousel3d-title {
+  color: #fff;
+}
+
+/* ---- Wrapper & Container ---- */
+.carousel3d-wrapper {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  cursor: pointer;
+}
+.carousel3d-container {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform var(--duration) var(--ease);
+}
+
+/* ---- Card ---- */
+.carousel3d-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--card-size);
+  height: var(--card-size);
+  transform: translate(-50%, -50%);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.5;
+  transition: transform var(--duration) var(--ease), opacity 0.4s var(--ease),
+    border 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+  isolation: isolate;
+}
+.carousel3d-item.scale {
+  transform-origin: center;
+  transform: scale(1.15) translateZ(0);
+}
+.carousel3d-item.active {
+  opacity: 1;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  z-index: 5;
+  /* entrada suave */
+  animation: fadeIn 0.5s var(--ease);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---- Aura simple ---- */
+/* usa box-shadow con currentColor y pulso */
+@keyframes floatGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px 6px rgba(0, 0, 0, 0);
+  }
+  50% {
+    box-shadow: 0 0 30px 12px currentColor;
+  }
+}
+.carousel3d-item.active.light {
+  border-color: var(--red);
+  color: var(--red);
+}
+.carousel3d-item.active.dark {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.carousel3d-item.active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: floatGlow 4s ease-in-out 0.3s infinite;
+  z-index: -1;
+}
+
+/* ---- Night filter ---- */
+.carousel3d-item.dark {
+  background-blend-mode: darken;
+  filter: brightness(0.65);
+}
+
+/* ---- Backgrounds ---- */
+.carousel3d-item.project-0 {
+  background-image: url("../assets/termical.jpg");
+}
+.carousel3d-item.project-1 {
+  background-image: url("../assets/project2.jpg");
+}
+.carousel3d-item.project-2 {
+  background-image: url("../assets/project3.jpg");
+}
+.carousel3d-item.project-3 {
+  background-image: url("../assets/project4.jpg");
+}
+.carousel3d-item.project-4 {
+  background-image: url("../assets/project5.jpg");
+}
+
+/* ---- Button ---- */
+.carousel3d-item .btn-cv {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  padding: 0.6rem 1.4rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  background: #fff;
+  color: var(--red);
+  transition: background 0.25s, color 0.25s, transform 0.2s;
+}
+.carousel3d-item .btn-cv:hover {
+  transform: translate(-50%, -2px);
+}
+.carousel3d-section.light .btn-cv {
+  border-color: var(--red);
+}
+.carousel3d-section.light .btn-cv:hover {
+  background: var(--red);
+  color: #fff;
+}
+.carousel3d-section.dark .btn-cv {
+  background: transparent;
+  color: var(--gold);
+  border-color: var(--gold);
+}
+.carousel3d-section.dark .btn-cv:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+/* ---- Controls ---- */
+.carousel3d-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.carousel-control {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background 0.25s, transform 0.2s;
+}
+.carousel3d-section.light .carousel-control {
+  background: var(--red);
+  color: #fff;
+}
+.carousel3d-section.light .carousel-control:hover {
+  background: rgba(230, 57, 70, 0.85);
+  transform: translateY(-1px);
+}
+.carousel3d-section.dark .carousel-control {
+  background: var(--gold);
+  color: #000;
+}
+.carousel3d-section.dark .carousel-control:hover {
+  background: rgba(244, 196, 48, 0.85);
+  transform: translateY(-1px);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  :root {
+    --card-size: 220px;
+  }
+}
+@media (max-width: 480px) {
+  :root {
+    --card-size: 180px;
+  }
+}
